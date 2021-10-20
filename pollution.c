@@ -22,6 +22,7 @@ void grille( double h, double L, double l) {
 
 
 
+double compost[0][0][0]
 
 
 
