@@ -68,7 +68,8 @@ double fonctions(double pop1, double pop2)  {
 	double Ua=Ua_max*flim;
 	double K_h=K_href*flim;
 	double K_hs=K_hsref*flim;
-
+	double Yh=0.66;
+	
 	
 	
 	//etape 2 : on rempli des tableau de croissance en fonction du temps
@@ -94,7 +95,7 @@ for( int t=0; t<3600; t++){
 	// Dégradation du substrat soluble 
 	
 	
-	donnée[t+1].mo_subsol=
+	donnée[t+1].mo_subsol=K_h*donnée[t].mo_rap+K_hs*donnée[t].mo_len-(U*donnée[t].pop1)/Yh;
 	
 	
 }
