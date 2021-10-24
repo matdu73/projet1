@@ -15,20 +15,8 @@ struct donnee {
 
 
 
-<<<<<<< HEAD
-struct case {
-	double rapportCN
-	double O2
-	double densite
-	double MO
 };
 
-
-
-=======
-};
-
->>>>>>> 3afe15cca543fae73208f618c6be015369563de5
 
 /*
 void grille( double h, double L, double l) {
