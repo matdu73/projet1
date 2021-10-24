@@ -12,12 +12,20 @@ struct donnee {
 	double mo_subsol;
 	double x;
 	double y;
+<<<<<<< HEAD
 
 
 
 };
 
 
+=======
+};
+
+
+
+
+>>>>>>> 03ce876f06d57e16659f295a30492e6c8e2e6b76
 /*
 void grille( double h, double L, double l) {
 
@@ -35,18 +43,19 @@ double compost[h][S];
 
 // Croissance de la microflore
 
-double fonctions(double x, double y, double h)  {
+void fonctions(double x, double y, double h)  {
 //	bh= bh,ref×1.066Tint−Toptdeces−1.21Tint−Tmax avec bh,ref=0.005h−1
 
+	FILE * file = fopen("lol.csv", "w");
 
 	//  if x> ....
 	struct donnee donnee[3600];
 
-	donnee[0].pop1=0;
-	donnee[0].pop2=0;
-	donnee[0].mo_rap=0;
-	donnee[0].mo_len=0;
-	donnee[0].mo_subsol=0;
+	donnee[0].pop1=10;
+	donnee[0].pop2=10;
+	donnee[0].mo_rap=10;
+	donnee[0].mo_len=10;
+	donnee[0].mo_subsol=10;
 
 
 
@@ -85,28 +94,41 @@ for( int t=0; t<3600; t++){
 	//pop1 -----> bacteries hetero ( noté Xh)
 
 	donnee[t+1].pop1=donnee[t].pop1*U-bh*donnee[t].pop1+donnee[t].pop1;
-
+		fprintf(file, ",");
+		fprintf(file, "%.05f",donnee[t+1].pop1 );
 
 	//pop2  ----> bacteries auto
 
 	donnee[t+1].pop2=donnee[t].pop2*Ua-donnee[t].pop2*ba+donnee[t].pop2;
+		fprintf(file, ",");
+		fprintf(file, "%.05f",donnee[t+1].pop2 );
 
 	// Dégradation de la matière organique rapidement biodégradable
 
 	donnee[t+1].mo_rap=donnee[t].mo_rap-K_h*donnee[t].mo_rap+(1-f_aero)*bh*donnee[t].pop1;
+			fprintf(file, ",");
+		fprintf(file, "%.05f",donnee[t+1].mo_rap );
+
 
 	//Dégradation de la matière lentement biodégradable
 
 
 	donnee[t+1].mo_len=-K_hs*donnee[t].mo_len+donnee[t].mo_len;
+				fprintf(file, ",");
+		fprintf(file, "%.05f",donnee[t+1].mo_len );
+		
 
 	// Dégradation du substrat soluble
 
 
 	donnee[t+1].mo_subsol=K_h*donnee[t].mo_rap+K_hs*donnee[t].mo_len-(U*donnee[t].pop1)/Yh;
+		fprintf(file, ",");
+		fprintf(file, "%.05f",donnee[t+1].mo_subsol );
+	
 
-
+fprintf(file, "\n");
 }
+	
 
 
 
@@ -119,11 +141,6 @@ for( int t=0; t<3600; t++){
 
 
 // Dégradation de la matière organique
-
-
-
-
-
 
 
 
@@ -146,7 +163,7 @@ int main(int argc, char * argv[]) {
 
 
 
-
+	fonctions(1, 1, 12) ;
 
 
 
