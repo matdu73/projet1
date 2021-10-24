@@ -12,20 +12,11 @@ struct donnee {
 	double mo_subsol;
 	double x;
 	double y;
-<<<<<<< HEAD
-
-
-
-};
-
-
-=======
 };
 
 
 
 
->>>>>>> 03ce876f06d57e16659f295a30492e6c8e2e6b76
 /*
 void grille( double h, double L, double l) {
 
