@@ -35,17 +35,19 @@ double compost[h][S];
 // Croissance de la microflore
 
 void fonctions(double x, double y, double h)  {
-//	bh= bh,ref×1.066Tint−Toptdeces−1.21Tint−Tmax avec bh,ref=0.005h−1
+
 
 	FILE * file = fopen("lol.csv", "w");
+
+
 
 	//  if x> ....
 	struct donnee donnee[3600];
 
 	donnee[0].pop1=10;
 	donnee[0].pop2=10;
-	donnee[0].mo_rap=10;
-	donnee[0].mo_len=10;
+	donnee[0].mo_rap=1;
+	donnee[0].mo_len=1;
 	donnee[0].mo_subsol=10;
 
 
@@ -54,8 +56,8 @@ void fonctions(double x, double y, double h)  {
 	double Ua_max=0.003;
 	double b_href =0.005;
 
-	double Ks=1;  // a trouver grace a une fonction
-	double Sr=1;  // a trouver grace a une fonction
+	double Ks=0.166;  // a trouver grace a une fonction
+	double Sr=0.5;  // a trouver grace a une fonction
 	double Tint=25;
 	double Tmax=82;
 	double Topt=49;
@@ -77,14 +79,18 @@ void fonctions(double x, double y, double h)  {
 	double K_hs=K_hsref*flim;
 	double Yh=0.66;
 
-
+		fprintf(file, " %s,%s,%s, %s ,%s, %s, %s\n"," "," " ,"pop1","pop2","mo_rap","mo_len","mo_sol");
 
 	//etape 2 : on rempli des tableau de croissance en fonction du temps
 for( int t=0; t<3600; t++){
 
+	
+		fprintf(file, ",");
+		fprintf(file, "%d",t);
 	//pop1 -----> bacteries hetero ( noté Xh)
 
-	donnee[t+1].pop1=donnee[t].pop1*U-bh*donnee[t].pop1+donnee[t].pop1;
+	donnee[t+1].pop1=donnee[t].pop1*U_max*Sr/(Sr+Ks);-bh*donnee[t].pop1+donnee[t].pop1;
+	
 		fprintf(file, ",");
 		fprintf(file, "%.05f",donnee[t+1].pop1 );
 
@@ -112,7 +118,7 @@ for( int t=0; t<3600; t++){
 	// Dégradation du substrat soluble
 
 
-	donnee[t+1].mo_subsol=K_h*donnee[t].mo_rap+K_hs*donnee[t].mo_len-(U*donnee[t].pop1)/Yh;
+	donnee[t+1].mo_subsol=	donnee[t].mo_subsol+K_h*donnee[t].mo_rap+K_hs*donnee[t].mo_len-(U*donnee[t].pop1)/Yh;
 		fprintf(file, ",");
 		fprintf(file, "%.05f",donnee[t+1].mo_subsol );
 	
