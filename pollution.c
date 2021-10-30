@@ -33,10 +33,10 @@ double compost[h][S];
 //limite par l’humidité de la matière  flimhum
 
 
-double flimhum(double tH2O) {
+int flimhum(double tH2O) {
 	//L'humidité est considérée comme étant de 70%, valeur pour laquelle l'humidité n'inhibe pas l'activité microbienne.
-	double H1= 0.4
-	double H2 =0.7
+	double H1= 0.4;
+	double H2 =0.7;
 	
 	if( tH2O<H1) {
 		return 0;
@@ -47,14 +47,11 @@ double flimhum(double tH2O) {
 		return b;
 	}
 	
-	if (tH2O>H2) {
+	else  {
 		
 		return 1;
 		
 	}
-	
-	
-	
 	
 	
 }
@@ -84,7 +81,7 @@ void fonctions(double x, double h)  {
 	double b_href =0.005;
 
 	double Ks=0.166;  // a trouver grace a une fonction
-	double Sr=0.5;  // a trouver grace a une fonction
+
 	double Tini=25;
 	double Tmax=82;
 	double Tmin=0;
@@ -105,7 +102,7 @@ void fonctions(double x, double h)  {
 
 
 	
-	double U=U_max*Sr/(Sr+Ks);
+
 	double Ua=Ua_max*flim;
 
 
@@ -125,6 +122,8 @@ for( int t=0; t<3600; t++){
 		}
 	
 	else { Tint= -t+85;}
+	
+	
 
 //Calcule des constantes dépandates du temps
 	double flimT = ((Tint-Tmax)*pow((Tint-Tmin),2))/((Topt-Tmin)*((Topt-Tmin)*(Tint-Topt)-(Topt-Tmax)*(Topt+Tmin-2*Tint)));
@@ -135,6 +134,7 @@ for( int t=0; t<3600; t++){
 			
 			break;
 		}
+		double U=U_max*donnee[t].mo_subsol/(donnee[t].mo_subsol+Ks);
 		
 	
 //		fprintf(file, "%f",bh);
