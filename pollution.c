@@ -28,9 +28,9 @@ double compost[h][S];
 //limite par l’humidité de la matière  flimhum
 
 
-int flimhum(double tH2O) {
-	//L'humidité est considérée comme étant de 70%, valeur pour laquelle l'humidité n'inhibe pas l'activité microbienne.
-	double H1= 0.4;
+double flimhum(double tH2O) {
+	
+	double H1= 0.2;
 	double H2 =0.7;
 	
 	if( tH2O<H1) {
@@ -78,77 +78,55 @@ void fonctions(double x, double h)  {
 	double Kxsb=0.5;
 	double Knh=1.5;
 	double Ks=0.166;
+	
 	double tNxi=0.08;
 	double tNxh=0.08;
+	
 	double Yh=0.66;
 	double YC02h=1.375;
 	double YH20h=0.2;
 	double Yn03=33;	
-	double H1=0.2;
-	double H2 = 0.7;
+	
+
+	
 	double Uh_max=0.2;
 	double Ua_max=0.03;
+	
 	double b_href =0.005;
 	double ba= 0.0083;
 	double kHRref=0.009;
 	double f_Iaero= 0.2;
 	double kHSref=0.003;
 
-<<<<<<< HEAD
-	double Ks=0.166;  // a trouver grace a une fonction
 
-=======
+
 	
 //températures------------------------------	
->>>>>>> 5bba6b0096eaa03be51ddcdd478e352a8a0f3e5b
+
 	double Tini=25;
 	double Tmax=82;
 	double Tmin=0;
 	double Topt=49;
 	double Toptd=40;
-<<<<<<< HEAD
-	double ba= 0.0083;
-	double flim=1;
+
 	
 
-	double k_href=0.009;
-	double f_aero= 0.2;
-	double K_hsref=0.03;
 
 
-
-=======
 	double Tintnit=Tini; //en réalité =Text
 	double Tmaxnit = 40;
 	double Tminnit=0;
 	double Toptnit=32;
 	
-	
->>>>>>> 5bba6b0096eaa03be51ddcdd478e352a8a0f3e5b
+
 	//Etape 1 : calcul des cst neccessaire
-	//double flim=1;
-	//double U=U_max*Sr/(Sr+Ks);
-	//double Ua=Ua_max*flim;
-	//double K_h=k_href*flim;
-	//double K_hs=K_hsref*flim;
 
-<<<<<<< HEAD
-
-
-	
-
-	double Ua=Ua_max*flim;
-
-
-	double Yh=0.66;
-=======
-	//initialisation
->>>>>>> 5bba6b0096eaa03be51ddcdd478e352a8a0f3e5b
+	double flimT=0;
 	double Tint=0;
 	double bh=0;
 	double Uh=0;
 	double Ua=0;
-	double flimT = 0;
+
 	double flimHum = 0;
 	double flim02h=0;
 	double flimNav =0;
@@ -156,7 +134,7 @@ void fonctions(double x, double h)  {
 	double flimHydXSB=0;
 	double r02biofilm=0;
 	double rC02=0;
-	double dH20h=0;
+	double H20h=0;
 	double NXa=0;
 	double NXh=0;
 	double NXsb=0;
@@ -166,7 +144,7 @@ void fonctions(double x, double h)  {
 	double Nav=0;
 	double kHS = 0;
 	double kHR = 0;
-	double tH20=0;
+	double tH2O=0.7;
 	double p02biofilm=0;
 	double p02int=0;
 	
@@ -186,24 +164,23 @@ for( int t=0; t<3600; t++){
 	
 	
 
-<<<<<<< HEAD
 //Calcule des constantes dépandates du temps
-	double flimT = ((Tint-Tmax)*pow((Tint-Tmin),2))/((Topt-Tmin)*((Topt-Tmin)*(Tint-Topt)-(Topt-Tmax)*(Topt+Tmin-2*Tint)));
-=======
+	 flimT = ((Tint-Tmax)*pow((Tint-Tmin),2))/((Topt-Tmin)*((Topt-Tmin)*(Tint-Topt)-(Topt-Tmax)*(Topt+Tmin-2*Tint)));
+
+
 //Calcule des constantes dépendantes du temps
->>>>>>> 5bba6b0096eaa03be51ddcdd478e352a8a0f3e5b
+
 
 	bh=b_href*pow(1.066,(Tint-Toptd))-pow(1.21,((Tint-Tmax)));
 	Uh=Uh_max*donnee[t].mo_subsol/(donnee[t].mo_subsol+Ks)*flimT*flim02h*flimHum*flimNav;
 	Ua=Ua_max*flimTnit*flim02a*flimHum*flimNav;
-	
-<<<<<<< HEAD
-	double bh=b_href*pow(1.066,(Tint-Toptd))-pow(1.21,((Tint-Tmax)));
+
+
 		if (bh<0.00001){
 			
 			break;
 		}
-		double U=U_max*donnee[t].mo_subsol/(donnee[t].mo_subsol+Ks);
+
 		
 	
 //		fprintf(file, "%f",bh);
@@ -211,19 +188,8 @@ for( int t=0; t<3600; t++){
 		fprintf(file, "%d",t);
 		fprintf(file, ",");
 		
-	double flimhydSB= (donnee[t].mo_len/donnee[t].pop1)/(0.5+donnee[t].mo_len/donnee[t].pop1);
-	double K_hs=K_hsref*flimhydSB;
-// haha
-	double flimhydRB=1/(t+1);
-	double K_h=k_href*flimhydRB;
-	
-	//pop1 -----> bacteries hetero ( noté Xh)
-	
 
-	donnee[t+1].pop1=floor(donnee[t].pop1*U_max*donnee[t].mo_subsol*flimT/(donnee[t].mo_subsol+Ks)-bh*donnee[t].pop1+donnee[t].pop1);
-	
-=======
-//calcul des flim a la con-------------------------------------------------
+//---------------------calcul des flim a la con-------------------------------------------------
 
 //flimT et flimTnit
 if (Tintnit>Tmaxnit || Tintnit< Tminnit) flimTnit = 0;
@@ -232,11 +198,8 @@ else flimTnit = ((Tintnit-Tmaxnit)*pow((Tintnit-Tminnit),2))/((Toptnit-Tminnit)*
 flimT = ((Tint-Tmax)*pow((Tint-Tmin),2))/((Topt-Tmin)*((Topt-Tmin)*(Tint-Topt)-(Topt-Tmax)*(Topt+Tmin-2*Tint)));
 
 //flimHum --> il manque tH20, lien avec dH20?
-if (tH20<H1) flimHum = 0; 
-else {
-	if (tH20<H2) flimHum = (tH20-H1)/(H2-H1); 
-	else flimHum = 1; }
-	 
+
+flimhum(tH2O);
 	
 //	flim02h --> il manque p02biofilm, doit avoir un rapport avec r02 non ?
 flim02h= p02biofilm/(p02biofilm+K02h);
@@ -247,7 +210,7 @@ flim02a= p02int/(p02int+K02a);
 // flimNav 
 flimNav = Nav/(Nav+Knh);
 
-//flimHydXRB
+//flimHydXRB 
 
 double dNXidt= bh*donnee[t].pop1*tNxi*f_Iaero*(1+(-ba*NXa)/(-bh*donnee[t].pop1*tNxh));
 NXa+=(Ua-ba)*NXa;  //il manque XNa initial
@@ -275,7 +238,7 @@ r02biofilm= -((1-Yh)/Yh)*Uh*donnee[t].pop1;
 rC02=(YC02h/Yh)*Uh*donnee[t].pop1;
 
 //H20h
-dH20h=(YH20h/Yh)*Uh*donnee[t].pop1;
+H20h+=(YH20h/Yh)*Uh*donnee[t].pop1;
 
 
 //calcul K
@@ -296,7 +259,7 @@ kHR= kHRref*flimHum*flimHydXRB;
 
 	donnee[t+1].pop1=donnee[t].pop1*Uh-bh*donnee[t].pop1+donnee[t].pop1;
 
->>>>>>> 5bba6b0096eaa03be51ddcdd478e352a8a0f3e5b
+
 
 		fprintf(file, "%.05f",donnee[t+1].pop1 );
 				fprintf(file, ",");
