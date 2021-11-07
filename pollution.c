@@ -61,7 +61,6 @@ void fonctions(double x, double h)  {
 
 
 
-	//  if x> ....
 	struct donnee donnee[3600];
 
 	donnee[0].pop1=10;
@@ -123,11 +122,11 @@ void fonctions(double x, double h)  {
 
 	double flimT=0;
 	double Tint=0;
-	double bh=0;
-	double Uh=0;
+	double bh=0.7;
+	double Uh=1;
 	double Ua=0;
 
-	double flimHum = 0;
+	double flimHum = 2;
 	double flim02h=0;
 	double flimNav =0;
 	double flimHydXRB=0;
@@ -135,21 +134,21 @@ void fonctions(double x, double h)  {
 	double r02biofilm=0;
 	double rC02=0;
 	double H20h=0;
-	double NXa=0;
-	double NXh=0;
-	double NXsb=0;
+	double NXa=1;
+	double NXh=1;
+	double NXsb=1;
 	double NXrb=0;
 	double flimTnit=0;
 	double flim02a=0;
-	double Nav=0;
+	double Nav=1;
 	double kHS = 0;
 	double kHR = 0;
-	double tH2O=0.7;
-	double p02biofilm=0;
-	double p02int=0;
+	double tH2O=1;
+	double p02biofilm=1;
+	double p02int=1;
 	
 
-	fprintf(file, " %s,%s, %s ,%s, %s, %s\n"," " ,"pop1","pop2","mo_rap","mo_len","mo_sol");
+	fprintf(file, "%s, %s ,%s, %s, %s\n","" ," t" ,"pop1","mo_len","mo_sol");
 
 	//etape 2 : on rempli des tableau de croissance en fonction du temps
 	
@@ -172,14 +171,16 @@ for( int t=0; t<3600; t++){
 
 
 	bh=b_href*pow(1.066,(Tint-Toptd))-pow(1.21,((Tint-Tmax)));
-	Uh=Uh_max*donnee[t].mo_subsol/(donnee[t].mo_subsol+Ks)*flimT*flim02h*flimHum*flimNav;
+	
+	Uh=Uh_max*donnee[t].mo_subsol/(donnee[t].mo_subsol+Ks);
+	//*flimT*flim02h*flimHum*flimNav;
 	Ua=Ua_max*flimTnit*flim02a*flimHum*flimNav;
 
 
 		if (bh<0.00001){
 			
 			break;
-		}
+	}
 
 		
 	
@@ -249,7 +250,6 @@ kHR= kHRref*flimHum*flimHydXRB;
 //---------------------------------------------------------
 
 
-
 		fprintf(file, "%d",t);
 		fprintf(file, ",");
 		
@@ -266,17 +266,17 @@ kHR= kHRref*flimHum*flimHydXRB;
 
 //pop2  ----> bacteries auto ( noté Xa)
 
-	donnee[t+1].pop2=floor(donnee[t].pop2*Ua*2-donnee[t].pop2*ba+donnee[t].pop2);
+//	donnee[t+1].pop2=floor(donnee[t].pop2*Ua*2-donnee[t].pop2*ba+donnee[t].pop2);
 
-		fprintf(file, "%.05f",donnee[t+1].pop2 );
-		fprintf(file, ",");
+//		fprintf(file, "%.05f",donnee[t+1].pop2 );
+//		fprintf(file, ",");
 		
 // Dégradation de la matière organique rapidement biodégradable (noté Xrb)
 
-	donnee[t+1].mo_rap=donnee[t].mo_rap-kHR*donnee[t].mo_rap+(1-f_Iaero)*bh*donnee[t].pop1;
+//	donnee[t+1].mo_rap=donnee[t].mo_rap-kHR*donnee[t].mo_rap+(1-f_Iaero)*bh*donnee[t].pop1;
 
-		fprintf(file, "%.05f",donnee[t+1].mo_rap );
-				fprintf(file, ",");
+	//	fprintf(file, "%.05f",donnee[t+1].mo_rap );
+		//		fprintf(file, ",");
 
 
 //Dégradation de la matière lentement biodégradable (noté Xsb)
@@ -329,9 +329,7 @@ void afficher(double h) {
 int main(int argc, char * argv[]) {
 
 
-
 	fonctions(1, 1) ;
-
 
 
 }
