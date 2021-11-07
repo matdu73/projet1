@@ -150,7 +150,7 @@ void fonctions(double x, double h)  {
 
 	fprintf(file, "%s, %s ,%s, %s, %s\n","" ," t" ,"pop1","mo_len","mo_sol");
 
-	//etape 2 : on rempli des tableau de croissance en fonction du temps
+//etape 2 : on rempli des tableau de croissance en fonction du temps
 	
 for( int t=0; t<3600; t++){
 	
