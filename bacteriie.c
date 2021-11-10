@@ -18,19 +18,34 @@ double concentration(int i, int x0, int y0, double c0){
 	int y = i / 100;
 	
 	double r = sqrt((x-x0)*(x-x0) + (y-y0)*(y-y0));
-	double c=c0/r;
+	double c=c0/(sqrt(r));
 	return c;
 }
 
 
 void gradc(double * tableau, struct position solute){
 	
+	
+	 FILE * file = fopen("gradientC.csv", "w");
 	int i = solute.y*100 + solute.x;
-	tableau[i]=solute.c;
 	for (int j=0; j<100*100; j++){
+
 		tableau[j]=concentration(j, solute.x, solute.y, solute.c);
-		printf("%0.2f, ", tableau[j]);
+		printf("%0.2f ", tableau[j]);
+
+		if (j==i) tableau[i]=solute.c;
+		else tableau[j]=concentration(j, solute.x, solute.y, solute.c);
+		if (j%100==0 & j!=0) {
+	//		printf("\n");
+			fprintf(file, "\n");}
+			
+		printf("%0.2f ", tableau[j]);
+		fprintf(file, "%0.2f ", tableau[j]);
+//		fprintf(file, ",");
+
+
 }
+        
 }
 
 
