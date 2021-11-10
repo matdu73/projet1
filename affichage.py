@@ -5,43 +5,47 @@ from matplotlib import cm
 from matplotlib.animation import FuncAnimation
 from matplotlib.colors import LightSource
 from matplotlib import animation, rc
+import math
 
 concentration=np.genfromtxt('/Users/mathilde/Desktop/myfiles/Programmation/projet/projet1/gradientC.csv', delimiter = ' ', dtype = None)
+trace=np.genfromtxt('/Users/mathilde/Desktop/myfiles/Programmation/projet/projet1/trace.csv', delimiter = ',', dtype = None)
 
-x=np.linspace(0, 100,100)
+x_robot=trace[:,0]
+y_robot=trace[:,1]
 
+longueur_tableau=int(len(concentration))
 
-y=np.linspace(0, 100,100)
-
+x=np.linspace(0,longueur_tableau,longueur_tableau)
 
 plt.axes().set_aspect('equal')
 
-plt.pcolormesh(x, y, concentration, shading = 'auto')
+plt.pcolormesh(x, x, concentration, shading = 'auto')
+
+
+
 
 
 
 fig,ax=plt.subplots()
 
-ax.set_xlim(0,100)
-ax.set_ylim(0,100)
+ax.set_xlim(0,longueur_tableau)
+ax.set_ylim(0,longueur_tableau)
 
 line,= ax.plot(0,0)
-x_data=[]
-y_data=[]
 
-def animation1(i):
-    x_data.append(i)
-    x_data.append(i)
-
-    line.set_xdata(x_data)
-    line.set_ydata(x_data)
-    return line,
-
-animation = FuncAnimation(fig, func=animation1, frames=np.arange(0, 100, 0.1), interval=10)
+for i in range(len(x_robot)):
+    plt.scatter(x_robot[i],y_robot[i])
+    plt.pause(0.1)
 
 
-#plt.savefig('concentration.png')
+#def animate(i):   
+#    line.set_data(x_robot[i], y_robot[i])
+#    return line,
+ 
+#ani = animation.FuncAnimation(fig, animate, frames=10, blit=True, interval=200, repeat=False)
 
 plt.show()
 
-# on peut faire for i in range .... et mettre dzans la boucle for un plt.pause(time)
+
+
+

@@ -77,7 +77,7 @@ void deplacement(struct position robot, double * tableau, struct position solute
 		}
 
 	c_avant=tableau[i];
-		fprintf(trace, "   %d,   %d\n ",robot.x,robot.y);
+		fprintf(trace, "   %d,   %d, ",robot.x,robot.y);
 		affichercapteur(robot);
 		robot.x+=dirx;
 		robot.y+=diry;
