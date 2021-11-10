@@ -64,10 +64,12 @@ void deplacement(struct position robot, double * tableau, struct position solute
 	int dirx=1;
 	int diry=1;
     double	c_avant=tableau[i];
+    
+    
     while (i!= i0){
 		
 
-	if ( (i>100*100) & (i<0) ) {
+	if ((robot.x>99) || (robot.x<0)||(robot.y>99) || (robot.y<0)) {
 		dirx=-dirx;
 		diry=-diry;
 	} 
@@ -96,7 +98,7 @@ int main(int argc, char * argv[]) {
 	double * terrain = malloc(100*100*sizeof(double));
 
 	struct position solute1 ={100,60,80};
-	struct position robot1={0,99,99};
+	struct position robot1={0,91,80};
 	gradc(terrain, solute1);
 	deplacement(robot1,terrain, solute1);
 	
