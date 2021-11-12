@@ -12,6 +12,7 @@ struct position {
 };
 
 
+
 double concentration(int i, int x0, int y0, double c0){
 	
 	int x = i % 100;
@@ -86,22 +87,33 @@ void deplacement(struct position robot, double * tableau, struct position solute
 		}
 
 	c_avant=tableau[i];
-	fprintf(trace, "   %d,   %d\n ",robot.x,robot.y);
+	fprintf(trace, "  %d,  %d \n ",robot.x, robot.y);
 	affichercapteur(robot);
 	robot.x+=dirx;
 	robot.y+=diry;
 	i = robot.y*100 + robot.x;
 }}
 
+void rencontre(struct position robot){
+
+	
+}
+
 int main(int argc, char * argv[]) {
 
 	double * terrain = malloc(100*100*sizeof(double));
 
 	struct position solute1 ={100,60,80};
-	struct position robot1={0,91,80};
-	gradc(terrain, solute1);
-	deplacement(robot1,terrain, solute1);
+	struct position robot[100];
 	
+	for (int j=0; j<2; j++){
+	robot[0].x= 91;
+	robot[0].y=80;}
+	
+	
+	gradc(terrain, solute1);
+	deplacement(robot[0],terrain, solute1);
+	deplacement(robot[1],terrain, solute1);
 	
 
 
