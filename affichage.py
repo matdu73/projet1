@@ -21,30 +21,24 @@ plt.axes().set_aspect('equal')
 
 plt.pcolormesh(x, x, concentration, shading = 'auto')
 
-
-
-
-
-
+bacteries, = plt.plot([],[], 'ko', ms=3, mfc ='red')
 fig,ax=plt.subplots()
+#for i in range(len(x_robot)):
+#    plt.scatter(x_robot[i],y_robot[i], label='skitscat',color='k',marker='*',s=2)
+#    plt.plot([x_robot[i]], [y_robot[i]], linestyle = 'none', marker = '*', c = 'lime',markersize = 3)
+#    plt.draw()
+    
+#    plt.pause(0.1)
 
-ax.set_xlim(0,longueur_tableau)
-ax.set_ylim(0,longueur_tableau)
-
-line,= ax.plot(0,0)
-
-for i in range(len(x_robot)):
-    plt.scatter(x_robot[i],y_robot[i])
-    plt.pause(0.1)
+def animate(i):
+    bacteries.set_data(x_robot[i],y_robot[i])
+    return bacteries,
 
 
-#def animate(i):   
-#    line.set_data(x_robot[i], y_robot[i])
-#    return line,
- 
-#ani = animation.FuncAnimation(fig, animate, frames=10, blit=True, interval=200, repeat=False)
+anim = animation.FuncAnimation(fig, animate, frames=100, init_func=None, fargs=None, save_count=None,  cache_frame_data=True)
 
-plt.show()
+
+
 
 
 

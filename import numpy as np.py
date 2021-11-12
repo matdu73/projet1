@@ -1,33 +1,21 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import cbook
-from matplotlib import cm
-from matplotlib.animation import FuncAnimation
-from matplotlib.colors import LightSource
-from matplotlib import animation, rc
-import math
+# generate axes object
+ax = plt.axes()
 
-k = 2*np.pi
-w = 2*np.pi
-dt = 0.01
+# set limits
+plt.xlim(0,10) 
+plt.ylim(0,10)
 
-xmin = 0
-xmax = 3
-nbx = 151
+for i in range(10):        
+     # add something to axes    
+     ax.scatter([i], [i]) 
+     ax.plot([i], [i+1], 'rx')
 
-x = np.linspace(xmin, xmax, nbx)
+     # draw the plot
+     plt.draw() 
+     plt.pause(0.01) #is necessary for the plot to update for some reason
 
-fig = plt.figure() # initialise la figure
-line, = plt.plot([], []) 
-plt.xlim(xmin, xmax)
-plt.ylim(-1, 1)
-
-def animate(i): 
-    t = i * dt
-    y = np.cos(k*x - w*t)
-    line.set_data(x, y)
-    return line,
- 
-ani = animation.FuncAnimation(fig, animate, frames=100, blit=True, interval=20, repeat=False)
-
-plt.show()
+     # start removing points if you don't want all shown
+     if i>2:
+         ax.lines[0].remove()
+         ax.collections[0].remove()
