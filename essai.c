@@ -78,8 +78,14 @@ void initial(struct position robot ){
 	
 }
 
+
+
+
+
+
 void deplacement(struct position robot, double * tableau, struct position solute){
 	
+
 	FILE * trace = fopen("trace.csv", "w");
 	int i = robot.y*100 + robot.x;
 	int i0= solute.y*100 + solute.x;
@@ -93,7 +99,7 @@ void deplacement(struct position robot, double * tableau, struct position solute
     double	c_avant=tableau[i];
     
     
-    while (i!= i0){
+
 		
 // si on sort du bord on prend la direction opposée
 
@@ -124,7 +130,68 @@ void deplacement(struct position robot, double * tableau, struct position solute
 	
 	i = robot.y*100 + robot.x;
 }
+
+
+void rencontre(struct position * robot[2]) {
+	int temps =0;
+	int nombre_de-bact=2
+	double * terrain = malloc(100*100*sizeof(double));
+
+	struct position solute1 ={1000,40,56}; // on initialise la position du soluté
+
+	initial(robot[0]); 	// on initialise la position initiale du premier robot
+	
+	gradc(terrain, solute1);   // gradient de concentration
+	
+	
+	// on repete l'action de deplacement 1000 fois
+	while (t<1000) {
+		// on repete cette action de deplacement pour toute les bacteries
+		
+		for( int i=0 ; i<nombre_de-bact; i++){
+			
+			deplacement(intial(robot[i]), tableau, solute1)
+			
+			// je verifie que pour les deux premieres pour l'instant
+			
+			if (robot[0].x=robot[1].x && robot[0].y=robot[1].y) {
+				
+				
+			
+			
+			
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
 }
+
 
 
 int main(int argc, char * argv[]) {
