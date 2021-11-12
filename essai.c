@@ -9,6 +9,9 @@ struct position {
 	double c;
 	int x;
 	int y;
+	int vect;
+	
+
 };
 
 
@@ -21,9 +24,9 @@ double concentration(int i, int x0, int y0, double c0){
 	return c;
 }
 
-void affichercapteur(struct position libelule) {
+void affichercapteur(struct position * libelule) {
     
-    printf(" x =  %d  y : %d\n ",libelule.x,libelule.y  );
+    printf(" x =  %d  y : %d\n ",libelule->x,libelule->y  );
 
 }
 
@@ -51,6 +54,29 @@ void gradc(double * tableau, struct position solute){
 	}
 }
 
+void initial(struct position robot ){
+
+	srand(time(NULL));
+    double randomDomaine = RAND_MAX + 1.0;
+   	int pos_alea_x =1;
+   	int pos_alea_y=3;
+
+
+		pos_alea_x = (int) (rand() / randomDomaine * 100);
+		pos_alea_y = (int) (rand() / randomDomaine * 100);
+	
+		robot.x=pos_alea_x;
+		
+		
+		robot.y=pos_alea_y;
+		printf(" x =  %d  y : %d\n ",robot.x,robot.y );
+		
+			
+	
+	
+	
+	
+}
 
 void deplacement(struct position robot, double * tableau, struct position solute){
 	
@@ -59,6 +85,7 @@ void deplacement(struct position robot, double * tableau, struct position solute
 	int i0= solute.y*100 + solute.x;
 	srand(time(NULL));
     double randomDomaine = RAND_MAX + 1.0;
+    
 
 	int iy = (int) (rand() / randomDomaine * 3);
 	int dirx=1;
@@ -68,11 +95,13 @@ void deplacement(struct position robot, double * tableau, struct position solute
     
     while (i!= i0){
 		
+// si on sort du bord on prend la direction opposée
 
 	if ((robot.x>99) || (robot.x<0)||(robot.y>99) || (robot.y<0)) {
 		dirx=-dirx;
 		diry=-diry;
 	} 
+	
 
 	if (tableau[i]< c_avant){ 
 		int tableau[]={-1,1,0};	
@@ -83,24 +112,35 @@ void deplacement(struct position robot, double * tableau, struct position solute
 			iy =(int) (rand() / randomDomaine * 3);}
 		dirx=tableau[ix];
 		diry=tableau[iy];
+		robot.vect= diry*100+dirx+robot.vect;
 		}
 
 	c_avant=tableau[i];
 	fprintf(trace, "   %d,   %d\n ",robot.x,robot.y);
-	affichercapteur(robot);
+	affichercapteur(&robot);
 	robot.x+=dirx;
 	robot.y+=diry;
+	robot.vect= diry+1*100+dirx+1+robot.vect;
+	
 	i = robot.y*100 + robot.x;
-}}
+}
+}
+
 
 int main(int argc, char * argv[]) {
 
 	double * terrain = malloc(100*100*sizeof(double));
 
 	struct position solute1 ={1000,40,56};
-	struct position robot1={0,0,10};
+	struct position robot[100];
+	
+initial(robot[0]);
+
+
+	
+
 	gradc(terrain, solute1);
-	deplacement(robot1,terrain, solute1);
+	deplacement(robot[0],terrain, solute1);
 	
 	
 
