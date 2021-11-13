@@ -1,21 +1,23 @@
+import numpy as np
 import matplotlib.pyplot as plt
-# generate axes object
-ax = plt.axes()
+from matplotlib import cbook
+from matplotlib import cm
+from matplotlib.animation import FuncAnimation
+from matplotlib.colors import LightSource
+from matplotlib import animation, rc
+import math
 
-# set limits
-plt.xlim(0,10) 
-plt.ylim(0,10)
+fig, ax = plt.subplots()
+for k in range(steps):
+    pos = computeNewPos(pos, vel, force)
+    ax.clear()        
 
-for i in range(10):        
-     # add something to axes    
-     ax.scatter([i], [i]) 
-     ax.plot([i], [i+1], 'rx')
+    ax.scatter(pos[0, 0], pos[0, 1], label = '1', color = 'r')
+    ax.scatter(pos[1, 0], pos[1, 1], label = '2', color = 'b')
 
-     # draw the plot
-     plt.draw() 
-     plt.pause(0.01) #is necessary for the plot to update for some reason
+    ax.xlabel('X')
+    ax.ylabel('Y')
 
-     # start removing points if you don't want all shown
-     if i>2:
-         ax.lines[0].remove()
-         ax.collections[0].remove()
+    plt.pause(0.05)
+
+plt.show()
