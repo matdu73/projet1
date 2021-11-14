@@ -81,48 +81,40 @@ void initial(struct position robot ){
 
 }
 
-void deplacement(struct position robot, double * tableau){
+void deplacement(struct position * robot, double * tableau){
 	
 	
-	int i = robot.y*100 + robot.x;
-	printf("\n i = (%d)", i); 
-	printf("%f", tableau[i]);
+	int i = robot->y*100 + robot->x;
+	//printf("\n concentration : %f \n", tableau[i]);
 	srand(time(NULL));
     double randomDomaine = RAND_MAX + 1.0;
 	int iy = (int) (rand() / randomDomaine * 3);  		
 
-	if ((robot.x>99) || (robot.x<0)||(robot.y>99) || (robot.y<0)) {
-		robot.dirx=-robot.dirx;
-		robot.diry=-robot.diry;
+	if ((robot->x>99) || (robot->x<0)||(robot->y>99) || (robot->y<0)) {
+		robot->dirx=-robot->dirx;
+		robot->diry=-robot->diry;
 	} 
 
 	else {
-		if (tableau[i]< robot.c){ 
+		if (tableau[i]< robot->c){ 
 			int direction[]={-1,1,0};	
 			int ix =(int) (rand() / randomDomaine * 3);
 			if (ix==2) {
 				iy =(int) (rand() / randomDomaine * 2);}
 		else {
 			iy =(int) (rand() / randomDomaine * 3);}
-		robot.dirx=direction[ix];
-		robot.diry=direction[iy];
+		robot->dirx=direction[ix];
+		robot->diry=direction[iy];
 		}}
 
-	robot.c=tableau[i];
-	printf("ca marche ?");
+	robot->c=tableau[i];
+	//affichercapteur(robot);
+	robot->x+=robot->dirx;
+	robot->y+=robot->diry;
+	printf("(%d,%d)		", robot->x, robot->y);
+	robot->vect[0]+=robot->dirx;
+	robot->vect[1]+=robot->diry;
 
-	affichercapteur(robot);
-	printf("ca marche ?");
-	robot.x+=robot.dirx;
-	printf("ca marche ?");
-	robot.y+=robot.diry;
-	printf("ca marche ?");
-	robot.vect[0]+=robot.dirx;
-	printf("ca marche ?");
-	robot.vect[1]+=robot.diry;
-	printf("ca marche ?");
-	
-	
 }
 
 
@@ -171,28 +163,43 @@ int main(int argc, char * argv[]) {
 	FILE * trace1 = fopen("trace1.csv", "w");
 	
 	double * terrain = malloc(100*100*sizeof(double));
-	struct position solute1={100,56,13};
+	struct position solute1={100,50,50};
 	struct position robot[100];
 	gradc(terrain, solute1);
 	
 	for (int i=0; i<3; i++){
-		printf("robot[%d] :  ",i);
-		initial(robot[i]); //on initialise tous nos robots (position de manière aléatoire, etc.)
+		robot[i].c=0;
+		robot[i].dirx=1;
+		robot[i].diry=1;
+		robot[i].vect[0]=1;
+		robot[i].vect[1]=1;
+	//	printf("robot[%d] :  ",i);
+	//	initial(robot[i]); //on initialise tous nos robots (position de manière aléatoire, etc.)
 	}
+	
+	robot[0].x=10;
+	robot[0].y=42;
+	robot[1].x=86;
+	robot[1].y=3;
+	robot[2].x=45;
+	robot[2].y=62;
+	
 	
 	//boucle pour faire avancer nos petites bactéries 600 fois
 	for (int t=0; t<600; t++){
-		
+		printf("\n\n");
 		for (int i=0; i<3; i++){
-			printf("%d",i);
-			deplacement(robot[i],terrain);
-			printf("H2%d",i);
+			printf("robot[%d] : (%d,%d) 	",i,robot[i].dirx, robot[i].diry);
+			deplacement(&robot[i],terrain);
 			fprintf(trace1, "  %d,  %d \n ",robot[i].x, robot[i].y);
 			int jr= robot[i].y*100+robot[i].x;
 			int js= solute1.y*100+solute1.x;
-			if (jr==js) break;
+			if (jr==js){
+				printf("bravo ! Au bout de %d",t);
+				break;
+				}
 		}
-		rencontre(robot,3, terrain);
+		//rencontre(robot,3, terrain);
 		
 	}
 
