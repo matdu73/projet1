@@ -23,6 +23,7 @@ int arround( double o) {
  
 }
 
+
 double concentration(int i, int x0, int y0, double c0){
   
   int x = i % 100;
@@ -153,13 +154,50 @@ void rencontre(struct position robot[3], int n, double * tableau ) {
         robot[j].c_avant=tableau[position_c];
       }
     
+<<<<<<< HEAD
     }
   }
   
  }
 
+=======
+    while (i!= i0){
+		
+
+	if ((robot.x>99) || (robot.x<0)||(robot.y>99) || (robot.y<0)) {
+		dirx=-dirx;
+		diry=-diry;
+	} 
+
+	if (tableau[i]< c_avant){ 
+		int tableau[]={-1,1,0};	
+		int ix =(int) (rand() / randomDomaine * 3);
+		if (ix==2) {
+			iy =(int) (rand() / randomDomaine * 2);}
+		else {
+			iy =(int) (rand() / randomDomaine * 3);}
+		dirx=tableau[ix];
+		diry=tableau[iy];
+		}
+
+	c_avant=tableau[i];
+	fprintf(trace, "  %d,  %d \n ",robot.x, robot.y);
+	affichercapteur(robot);
+	robot.x+=dirx;
+	robot.y+=diry;
+	i = robot.y*100 + robot.x;
+}}
+
+void rencontre(struct position robot){
+
+	
+}
+
+int main(int argc, char * argv[]) {
+>>>>>>> fe98258a1855d7500ccc984dfcf79c49bae8cb7a
 
 
+<<<<<<< HEAD
 int main(int argc, char * argv[]) {
 
 double * terrain = malloc(100*100*sizeof(double));
@@ -183,6 +221,20 @@ double * terrain = malloc(100*100*sizeof(double));
     rencontre(robot,3, terrain);
     
   }
+=======
+	struct position solute1 ={100,60,80};
+	struct position robot[100];
+	
+	for (int j=0; j<2; j++){
+	robot[0].x= 91;
+	robot[0].y=80;}
+	
+	
+	gradc(terrain, solute1);
+	deplacement(robot[0],terrain, solute1);
+	deplacement(robot[1],terrain, solute1);
+	
+>>>>>>> fe98258a1855d7500ccc984dfcf79c49bae8cb7a
 
       
 

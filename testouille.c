@@ -11,10 +11,6 @@ int arround( double o) {
 	return (int) floor(o+0.5);
 	
 	
-	
-	
-	
-	
 }
 int main(int argc, char * argv[]) {
 	
