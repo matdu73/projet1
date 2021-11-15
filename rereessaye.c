@@ -16,7 +16,6 @@ struct position {
 
 };
 
-
 int arround( double o) {
 
  return (int) floor(o+0.5);
@@ -97,21 +96,23 @@ void deplacement(struct position * robot, double * tableau){
 
 	else {
 		if (tableau[i]< robot->c){ 
+			
 			int direction[]={-1,1,0};	
 			int ix =(int) (rand() / randomDomaine * 3);
 			if (ix==2) {
 				iy =(int) (rand() / randomDomaine * 2);}
-		else {
-			iy =(int) (rand() / randomDomaine * 3);}
+			else {
+				iy =(int) (rand() / randomDomaine * 3);}
 		robot->dirx=direction[ix];
 		robot->diry=direction[iy];
+		printf("coucoutoi %d", robot->dirx);
 		}}
 
 	robot->c=tableau[i];
 	//affichercapteur(robot);
 	robot->x+=robot->dirx;
 	robot->y+=robot->diry;
-	printf("(%d,%d)		", robot->x, robot->y);
+	printf("(%d,%d), concentration:%f		", robot->x, robot->y, robot->c);
 	robot->vect[0]+=robot->dirx;
 	robot->vect[1]+=robot->diry;
 

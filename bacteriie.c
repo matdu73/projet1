@@ -1,12 +1,17 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <time.h>
+
 
 
 struct position {
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 416c459b3f1d311462090b455def434939db2504
 	double c;
 	int x;
 	int y;
@@ -24,42 +29,39 @@ int arround( double o) {
 }
 
 double concentration(int i, int x0, int y0, double c0){
-	
+
 	int x = i % 100;
 	int y = i / 100;
+
 	double r = sqrt((x-x0)*(x-x0) + (y-y0)*(y-y0));
 	double c=c0/(sqrt(r));
 	return c;
 }
 
-void affichercapteur(struct position libelule) {
-    
-    printf(" x =  %d  y : %d\n ",libelule.x,libelule.y  );
-
-}
 
 void gradc(double * tableau, struct position solute){
-	
-	
-	 FILE * gradient = fopen("gradientC.csv", "w");
+
+
+	 FILE * file = fopen("gradientC.csv", "w");
 	int i = solute.y*100 + solute.x;
 	for (int j=0; j<100*100; j++){
 
 		tableau[j]=concentration(j, solute.x, solute.y, solute.c);
-	//	printf("%0.2f ", tableau[j]);
-	
+		printf("%0.2f ", tableau[j]);
+
 		if (j==i) tableau[i]=solute.c;
 		else tableau[j]=concentration(j, solute.x, solute.y, solute.c);
-		
-		if ((j%100==0) & (j!=0)) {
-	 //		printf("\n");
-			fprintf(gradient, "\n");}
+		if (j%100==0 & j!=0) {
+	//		printf("\n");
+			fprintf(file, "\n");}
 
-	//	printf("%0.2f ", tableau[j]);
-		fprintf(gradient, "%0.2f ", tableau[j]);
+		printf("%0.2f ", tableau[j]);
+		fprintf(file, "%0.2f ", tableau[j]);
 //		fprintf(file, ",");
 
-	}
+
+}
+
 }
 
 void initial(struct position robot ){
@@ -79,6 +81,7 @@ void initial(struct position robot ){
 	robot.vect[1]=1;
 	printf("(%d, %d) \n", robot.x, robot.y);
 
+<<<<<<< HEAD
 }
 
 void deplacement(struct position robot, double * tableau){
@@ -124,6 +127,36 @@ void deplacement(struct position robot, double * tableau){
 	
 	
 }
+=======
+
+
+
+void deplacement(struct position robot, double * tableau, struct position solute){
+
+	int i = robot.y*100 + robot.x;
+	int i0= solute.y*100 + solute.x;
+	double randomDomaine = RAND_MAX + 1.0;
+    int init = (rand() / randomDomaine * 3);
+	int dirx=1;
+	int diry=1;
+
+    while (i!= i0){
+
+		if (diminution de concentration){
+			dirx =(rand() / randomDomaine * 3)-1;
+			diry =(rand() / randomDomaine * 3)-1;
+		}
+
+		robot.x+=dirx;
+		robot.y+=diry;
+		i = robot.y*100 + robot.x;
+
+
+
+
+
+}}
+>>>>>>> 416c459b3f1d311462090b455def434939db2504
 
 
 void rencontre(struct position robot[3], int n, double * tableau ) {
@@ -166,6 +199,7 @@ void rencontre(struct position robot[3], int n, double * tableau ) {
  }
 
 
+<<<<<<< HEAD
 int main(int argc, char * argv[]) {
 	
 	FILE * trace1 = fopen("trace1.csv", "w");
@@ -202,4 +236,13 @@ int main(int argc, char * argv[]) {
 
 	return 0;
  
+=======
+	struct position solute1 ={100,50,50};
+	struct position robot1={0,10,10};
+
+	//gradc(terrain, solute1);
+
+	free(terrain);
+	return 0;
+>>>>>>> 416c459b3f1d311462090b455def434939db2504
 }
