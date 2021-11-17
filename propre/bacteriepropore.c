@@ -122,7 +122,7 @@ void deplacement(struct position * robot, double * tableau){
 
 void rencontre(struct position * robot, int n, double * tableau ) {
 	
-	printf("coutoutrpvkhpgihb");
+	//printf("H\n");
 	for ( int i=0 ; i<n-1; i++){
 		for ( int j=i ; j<n; j++){
 			if (robot[i].x==robot[j].x && robot[i].y==robot[j].y) {
@@ -140,6 +140,8 @@ void rencontre(struct position * robot, int n, double * tableau ) {
 				
 				robot[i].dirx=arround(robot[i].vect[0]/sqrt(robot[i].vect[0]+robot[i].vect[1]));
 				robot[i].diry=arround(robot[i].vect[1]/sqrt(robot[i].vect[0]+robot[i].vect[1]));
+				
+				printf("i= %d, dirx= %d \n", i, robot[i].dirx);
 				
 				robot[j].dirx=robot[i].dirx;
 				robot[j].diry=robot[i].diry;
