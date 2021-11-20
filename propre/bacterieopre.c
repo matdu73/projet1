@@ -138,10 +138,11 @@ void rencontre(struct position * robot, int n, double * tableau ) {
 				
 				//on normalise la tendance générale pour faire avancer les robots(bactéries-libbellules) d'un vecteur unitaire dans la direction idéale 
 				
-				robot[i].dirx=arround(robot[i].vect[0]/sqrt(robot[i].vect[0]+robot[i].vect[1]));
-				robot[i].diry=arround(robot[i].vect[1]/sqrt(robot[i].vect[0]+robot[i].vect[1]));
+				robot[i].dirx=arround(robot[i].vect[0]/sqrt(robot[i].vect[0]*robot[i].vect[0]+robot[i].vect[1]*robot[i].vect[1]));
+				robot[i].diry=arround(robot[i].vect[1]/sqrt(robot[i].vect[0]*robot[i].vect[0]+robot[i].vect[1]*robot[i].vect[1]));
 				
-				printf("i= %d, dirx= %d \n", i, robot[i].dirx);
+				printf("i= %d, dirx= %d, diry=%d, vect=(%d,%d) \n", i, robot[i].dirx, robot[i].diry, robot[i].vect[0], robot[i].vect[1]);
+				printf("j= %d, dirx= %d, diry=%d, vect=(%d,%d)\n", j, robot[j].dirx, robot[j].diry, robot[j].vect[0], robot[j].vect[1]);
 				
 				robot[j].dirx=robot[i].dirx;
 				robot[j].diry=robot[i].diry;
