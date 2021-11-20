@@ -8,7 +8,7 @@ import math
 
 fig=plt.figure()
 
-gradient_concentration=np.genfromtxt('/Users/mathilde/Desktop/myfiles/Programmation/projet/projet1/gradientC.csv', delimiter = ' ', dtype = None)
+gradient_concentration=np.genfromtxt('/Users/mathilde/Desktop/myfiles/Programmation/projet/projet1/propre/gradientC.csv', delimiter = ' ', dtype = None)
 trace=np.genfromtxt('/Users/mathilde/Desktop/myfiles/Programmation/projet/projet1/trace.csv', delimiter = ',', dtype = None)
 n=int(len(gradient_concentration))
 trace1=np.genfromtxt('/Users/mathilde/Desktop/myfiles/Programmation/projet/projet1/propre/trace1.csv', delimiter = ',', dtype = None)
@@ -43,9 +43,10 @@ def animate(i):
     return bacterie1, bacterie2,bacterie3,
 
 
-anim = animation.FuncAnimation(fig, animate, frames=104,interval=150, blit=True,repeat=True)
+anim = animation.FuncAnimation(fig, animate, frames=len(x1_robot),interval=150, blit=True)
 
 plt.show()
+
 
 
 
