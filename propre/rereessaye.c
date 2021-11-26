@@ -277,6 +277,8 @@ int main(int argc, char * argv[]) {
  if (x0>=100 || y0>=100 || x0<=0 || y0<=0 || n<=0 || n>=1000) { return printf( "les coordonnées du solute doivent être des entiers compris entre [0:100[ , le nb de batéries doit être un entier compris entre [0;100] ") ;}
   
   FILE * trace1 = fopen("trace1.csv", "w");
+  FILE * trace2 = fopen("trace2.csv", "w");
+
 
 srand(time(NULL));
   
@@ -298,11 +300,19 @@ srand(time(NULL));
           return 0;}
     //printf("\n\n");
     for (int i=0; i<n; i++){
-	
-		deplacement(&robot[i],terrain);
+		if (robot[i].couleur==1){
+			deplacement2(&robot[i],terrain)
+			fprintf(trace2, "  %d,  %d \n ",robot[i].x, robot[i].y);
+			fprintf(trace1, "  %d,  %d \n ",0, 0);
+			
+			}
+			
+		else{
+		deplacement1(&robot[i],terrain);
 	
        //printf("robot[%d] : (%d,%d)   ",i,robot[i].dirx, robot[i].diry);
       fprintf(trace1, "  %d,  %d \n ",robot[i].x, robot[i].y);
+      fprintf(trace2, "  %d,  %d \n ",0, 0);
       int jr=robot[i].y*100+robot[i].x;
       int js=solute1.y*100+solute1.x;
         if (jr==js){
